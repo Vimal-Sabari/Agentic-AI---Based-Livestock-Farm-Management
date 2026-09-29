@@ -1,0 +1,41 @@
+# =============================================================================
+# Production Agent – Default Configuration
+# =============================================================================
+
+baseline:
+  default_days_before_anomaly: 7
+  min_days_required: 1               # Absolute minimum to even try, though confidence will be low
+  trim_fraction: 0.1                 # For robust trimmed mean
+
+deviation:
+  pct_drop_threshold: 5.0            # Minimum percent drop to flag as a 'supports' deviation
+  zscore_threshold: 1.5              # Minimum z-score to flag as a 'supports' deviation
+  min_persistence_days: 1            # Must persist for at least this many days
+
+trend:
+  min_days_for_trend: 3              # Minimum days required in anomaly window to calculate slope
+
+sessions:
+  morning_hour: 6
+  evening_hour: 17
+  difference_threshold_pct: 15.0     # Flag if morning and evening differ by > 15%
+
+herd:
+  is_herd_wide_threshold: 0.35       # Fraction of herd dropping to consider it a herd-wide issue
+  min_cows_for_herd_check: 2
+
+verdict:
+  weight_deviation: 0.40
+  weight_persistence: 0.20
+  weight_trend: 0.15
+  weight_herd_context: 0.25
+  supports_min_score: 0.55
+  inconclusive_min_score: 0.30
+
+summarizer:
+  use_llm: false
+  llm_model: "gemini-1.5-flash"
+  llm_temperature: 0.1
+
+data:
+  min_coverage_pct_for_analysis: 40.0

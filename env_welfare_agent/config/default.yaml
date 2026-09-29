@@ -1,0 +1,75 @@
+# =============================================================================
+# Environment & Welfare Agent – Default Configuration
+# =============================================================================
+
+# ---------------------------------------------------------------------------
+# THI Heat-Stress Thresholds
+# NOTE: These are commonly-used reference values from NRC (2001) and Thom (1958).
+# Exact breakpoints vary by breed (Holstein vs. Jersey), acclimatisation,
+# production level, and which publication you follow.  Adjust per farm before
+# deployment.  Values listed are the LOWER bound of each band.
+# ---------------------------------------------------------------------------
+thi_thresholds:
+  comfort_max: 68.0      # < 68  → Comfort (no stress)
+  mild_min: 68.0         # 68-72 → Mild stress
+  moderate_min: 72.0     # 72-80 → Moderate stress
+  severe_min: 80.0       # 80-90 → Severe stress
+  emergency_min: 90.0    # > 90  → Emergency stress
+
+# ---------------------------------------------------------------------------
+# Baseline derivation
+# ---------------------------------------------------------------------------
+baseline:
+  default_days_before_anomaly: 3      # days to look back when no explicit baseline window given
+  resample_freq: "1h"                  # pandas offset alias (e.g. "1h", "30min", "2h")
+  min_coverage_pct: 50.0              # minimum % of expected rows required in any window
+
+# ---------------------------------------------------------------------------
+# Herd-wide deviation check
+# ---------------------------------------------------------------------------
+herd:
+  is_herd_wide_threshold: 0.50        # fraction of cows deviating to declare herd-wide effect
+  deviation_zscore_threshold: 1.5     # |z-score| vs own baseline to call a cow "deviating"
+  deviation_pct_threshold: 20.0       # percent-change alternative when std ≈ 0
+  min_cows_for_herd_check: 2          # skip herd check if fewer cows available
+
+# ---------------------------------------------------------------------------
+# Lagged cross-correlation (THI ↔ activity)
+# ---------------------------------------------------------------------------
+alignment:
+  max_lag_hours: 24                   # maximum lag to search (hours)
+  min_points_for_correlation: 6       # minimum overlap before reporting r
+
+# ---------------------------------------------------------------------------
+# Verdict scoring weights (must sum ≤ 1; spare weight goes to 'uncertain')
+# ---------------------------------------------------------------------------
+verdict:
+  weight_env_signal: 0.35             # significant environmental change
+  weight_temporal_alignment: 0.20     # env change precedes/coincides with behavior change
+  weight_herd_wide: 0.30             # herd-wide behavioral deviation
+  weight_data_coverage: 0.15         # data completeness
+  # Thresholds for final verdict
+  supports_min_score: 0.55
+  inconclusive_min_score: 0.30        # below this → does_not_support
+
+# ---------------------------------------------------------------------------
+# Exposure metrics
+# ---------------------------------------------------------------------------
+exposure:
+  heat_load_base_thi: 68.0            # cumulative load counted above this threshold
+  night_hours: [20, 21, 22, 23, 0, 1, 2, 3, 4, 5]   # UTC hours considered "night"
+
+# ---------------------------------------------------------------------------
+# Summarizer
+# ---------------------------------------------------------------------------
+summarizer:
+  use_llm: false           # set true to enable LLM rephrasing (requires API key)
+  llm_model: "gemini-1.5-flash"
+  llm_temperature: 0.1
+  max_summary_sentences: 3
+
+# ---------------------------------------------------------------------------
+# Data coverage threshold for inconclusive override
+# ---------------------------------------------------------------------------
+data:
+  min_coverage_pct_for_analysis: 40.0
