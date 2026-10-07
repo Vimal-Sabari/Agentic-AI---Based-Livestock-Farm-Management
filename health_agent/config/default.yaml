@@ -1,0 +1,33 @@
+# Health & Behavior Lead Agent Configuration
+# Clinical thresholds, Z-score sensitivity, and baseline extraction parameters
+
+health_thresholds:
+  # Core Body Temperature (°C)
+  fever_temp_threshold_c: 39.2        # Absolute threshold for bovine fever
+  fever_delta_pct: 2.0                # Relative % rise over baseline
+  fever_zscore_threshold: 2.5         # Individualized standard deviations above baseline
+
+  # Activity Index (Standardized points)
+  lethargy_act_delta_pct: -20.0       # Activity drop indicating lethargy
+  lethargy_zscore_threshold: -2.0     # Z-score for activity suppression
+  restlessness_act_delta_pct: 35.0    # Activity surge indicating restlessness/estrus
+  restlessness_zscore_threshold: 2.5  # Z-score for activity surge
+
+  # Daily Lying Time (minutes/day)
+  lethargy_lying_delta_pct: 20.0      # % increase in lying (reluctance to stand/weakness)
+  restlessness_lying_delta_pct: -25.0 # % drop in lying (discomfort/restlessness)
+  lying_zscore_threshold: 2.0         # Absolute Z-score threshold for lying shifts
+
+  # Acceleration RMS (g)
+  accel_drop_delta_pct: -25.0
+  accel_zscore_threshold: -2.0
+
+severity_weights:
+  temp_weight: 0.45                   # Physiological temperature carries highest weight
+  activity_weight: 0.30               # Movement suppression / restlessness
+  lying_weight: 0.25                  # Postural / resting shifts
+
+baseline:
+  default_days_preceding: 5           # Days preceding anomaly to derive moving baseline
+  min_baseline_hours: 24              # Minimum total hours needed for valid baseline
+  min_daily_coverage_pct: 80.0        # % of hours required (e.g. 20 of 24h) to count a day in lying baseline

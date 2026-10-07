@@ -22,6 +22,19 @@ class TimeWindow(BaseModel):
         return v
 
 
+class QuestionType(str):
+    """Controlled vocabulary for specialist question routing."""
+    ENVIRONMENT_CHECK = "environment_check"
+    HEAT_STRESS_CHECK = "heat_stress_check"
+    HERD_WIDE_CHECK = "herd_wide_check"
+    FEEDING_DROP_CHECK = "feeding_drop_check"
+    INTAKE_CHECK = "intake_check"
+    YIELD_IMPACT_CHECK = "yield_impact_check"
+    MASTITIS_CHECK = "mastitis_check"
+    METABOLIC_CHECK = "metabolic_check"
+    GENERAL = "general"
+
+
 class AgentRequest(BaseModel):
     """
     Standard request payload sent to specialist agents.
@@ -31,16 +44,24 @@ class AgentRequest(BaseModel):
     from_agent: str = Field(description="ID/role of calling agent (e.g. 'health_behavior')")
     to_agent: str = Field(description="ID/role of target agent (e.g. 'environment_welfare', 'feeding_nutrition', 'production')")
     cow_id: str = Field(description="Target individual cow ID (e.g. 'cow_07')")
-    question: str = Field(description="Natural language question")
-    question_type: str = Field(description="Type/category of question (e.g. 'environment_check', 'feeding_drop_check', 'yield_impact_check')")
+    question: str = Field(description="Natural language question evaluating evidence for and against hypotheses")
+    question_type: str = Field(description="Controlled vocabulary question type (e.g. 'environment_check', 'feeding_drop_check', 'yield_impact_check')")
     anomaly_window: TimeWindow = Field(description="Time window where anomaly was detected")
     baseline_window: Optional[TimeWindow] = Field(
         default=None,
         description="Optional baseline window. If absent, agent computes baseline from historical period preceding anomaly."
     )
+    priority: Literal["low", "normal", "high", "urgent"] = Field(
+        default="normal",
+        description="Priority level of the inquiry based on anomaly severity"
+    )
+    timeout_s: float = Field(
+        default=5.0,
+        description="Execution deadline timeout in seconds to prevent blocking"
+    )
     context: Dict[str, Any] = Field(
         default_factory=dict,
-        description="Context information, e.g. {'anomaly_summary': 'Activity -27%, lying time up', 'extra': {}}"
+        description="Structured context: anomaly summary, flags (fever, lethargy), severity score, metric comparison dict"
     )
 
 
