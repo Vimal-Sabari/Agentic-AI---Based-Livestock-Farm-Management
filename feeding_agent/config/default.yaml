@@ -1,0 +1,47 @@
+data:
+  resample_freq: "1h"
+  min_coverage_pct: 40.0
+  min_day_coverage_pct: 50.0
+
+baseline:
+  default_days_before_anomaly: 7
+  min_days_required: 2
+  min_days_reliable: 5
+  trim_fraction: 0.1
+
+deviation:
+  decline_pct_threshold: 15.0
+  increase_pct_threshold: 25.0
+  zscore_threshold: 1.5
+  relative_spread_floor: 0.05
+
+meals:
+  gap_minutes: 30
+
+rumination:
+  allow_proxy: false
+
+availability:
+  restricted_below_pct: 50.0
+  unknown_confidence_penalty: 0.10
+
+herd:
+  herd_wide_fraction: 0.35
+  min_cows: 4
+
+verdict:
+  weights:
+    feeding: 0.35
+    rumination: 0.25
+    intake: 0.15
+    consistency: 0.15
+    coverage: 0.10
+  supports_min_score: 0.55
+  inconclusive_min_score: 0.30
+  short_baseline_penalty: 0.15
+  unknown_availability_penalty: 0.10
+  missing_rumination_penalty: 0.15
+  proxy_penalty: 0.15
+
+summarizer:
+  use_llm: false
