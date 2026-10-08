@@ -29,7 +29,7 @@ class ProductionAgent:
         
     def handle_query(self, request: AgentRequest) -> AgentResponse:
         try:
-            if request.question_type not in ["production_check", "trend_check", "composition_check", "general"]:
+            if request.question_type not in ["production_check", "trend_check", "composition_check", "yield_impact_check", "mastitis_check", "general"]:
                 raise ValueError(f"Unsupported question_type: {request.question_type}")
                 
             astart = datetime.fromisoformat(request.anomaly_window.start.replace("Z", "+00:00"))
@@ -69,6 +69,7 @@ class ProductionAgent:
                 
             metrics = {
                 "mean_yield_daily": MetricItem(value=deviation.mean_yield_daily, unit="kg/day", baseline=baseline.mean_yield_daily, delta_pct=deviation.delta_pct),
+                "daily_milk_yield": MetricItem(value=deviation.mean_yield_daily, unit="kg/day", baseline=baseline.mean_yield_daily, delta_pct=deviation.delta_pct),
                 "trend_slope": MetricItem(value=trend.slope_kg_per_day, unit="kg/day²", baseline=0.0, delta_pct=0.0),
                 "days_persisted": MetricItem(value=deviation.days_persisted, unit="days", baseline=0.0, delta_pct=0.0),
                 "herd_fraction_deviating": MetricItem(value=herd.fraction_deviating, unit="fraction", baseline=0.0, delta_pct=0.0)

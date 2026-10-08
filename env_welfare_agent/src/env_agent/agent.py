@@ -217,6 +217,7 @@ class EnvironmentWelfareAgent:
             return MetricItem(value=round(val, 2), unit=unit, baseline=round(base, 2), delta_pct=round(delta, 2))
 
         metrics = {
+            "thi": _mi(exposure.mean_thi, "", baseline.mean_thi),
             "mean_thi": _mi(exposure.mean_thi, "", baseline.mean_thi),
             "max_thi": _mi(exposure.max_thi, "", baseline.p90_thi),
             "mean_barn_temp_c": _mi(exposure.mean_temp_c, "°C", baseline.mean_temp_c),

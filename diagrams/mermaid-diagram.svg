@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 753.0625 996.2089999999998" width="753.0625" height="996.2089999999998" style="--bg:#1F1F1F;--fg:#CCCCCC;--line:#CCCCCC;--accent:#0078D4;--muted:#CCCCCCCC;--surface:#181818;--border:#CCCCCC;background:var(--bg)">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap');
+  text { font-family: 'Inter', system-ui, sans-serif; }
+  svg {
+    /* Derived from --bg and --fg (overridable via --line, --accent, etc.) */
+    --_text:          var(--fg);
+    --_text-sec:      var(--muted, color-mix(in srgb, var(--fg) 60%, var(--bg)));
+    --_text-muted:    var(--muted, color-mix(in srgb, var(--fg) 40%, var(--bg)));
+    --_text-faint:    color-mix(in srgb, var(--fg) 25%, var(--bg));
+    --_line:          var(--line, color-mix(in srgb, var(--fg) 50%, var(--bg)));
+    --_arrow:         var(--accent, color-mix(in srgb, var(--fg) 85%, var(--bg)));
+    --_node-fill:     var(--surface, color-mix(in srgb, var(--fg) 3%, var(--bg)));
+    --_node-stroke:   var(--border, color-mix(in srgb, var(--fg) 20%, var(--bg)));
+    --_group-fill:    var(--bg);
+    --_group-hdr:     color-mix(in srgb, var(--fg) 5%, var(--bg));
+    --_inner-stroke:  color-mix(in srgb, var(--fg) 12%, var(--bg));
+    --_key-badge:     color-mix(in srgb, var(--fg) 10%, var(--bg));
+  }
+</style>
+<defs>
+  <marker id="arrowhead" markerWidth="8" markerHeight="5" refX="7" refY="2.5" orient="auto">
+    <polygon points="0 0, 8 2.5, 0 5" fill="var(--_arrow)" stroke="var(--_arrow)" stroke-width="0.75" stroke-linejoin="round" />
+  </marker>
+  <marker id="arrowhead-start" markerWidth="8" markerHeight="5" refX="1" refY="2.5" orient="auto-start-reverse">
+    <polygon points="8 0, 0 2.5, 8 5" fill="var(--_arrow)" stroke="var(--_arrow)" stroke-width="0.75" stroke-linejoin="round" />
+  </marker>
+</defs>
+<polyline class="edge" data-from="Start" data-to="DetectNode" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="593.164,170.4 593.164,210.1" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="DetectNode" data-to="PlannerNode" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="593.164,263.9 593.164,287.9 351.9045,287.9 351.9045,311.90000000000003" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="PlannerNode" data-to="EnvNode" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="Anomaly detected -&gt; Query Environment" points="303.9863333333333,359.81816666666674 303.9863333333333,287.90000000000003 201.43099999999998,287.90000000000003 201.43099999999998,231.6 182.57466666666664,231.6 182.57466666666664,187.3" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="EnvNode" data-to="PlannerNode" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="146.93099999999998,187.3 146.93099999999998,287.9 351.9045,287.9 351.9045,311.90000000000003" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="PlannerNode" data-to="FeedNode" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="Query Feeding &amp; Nutrition" points="399.8226666666666,359.8181666666666 399.8226666666666,299.90000000000003 427.9045,299.90000000000003 427.9045,129.8 425.91866666666664,129.8 425.91866666666664,93.80000000000001" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="FeedNode" data-to="PlannerNode" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="389.9045,93.80000000000001 389.9045,287.9 351.9045,287.9 351.9045,311.90000000000003" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="PlannerNode" data-to="ProdNode" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="Query Production" points="280.02725,527.53175 280.02725,822.1089999999999 241.58074999999997,822.1089999999999 241.58074999999997,890.4089999999999 229.1990833333333,890.4089999999999 229.1990833333333,902.4089999999999" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="ProdNode" data-to="PlannerNode" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="310.3664166666666,902.4089999999999 310.3664166666666,890.4089999999999 305.72137499999997,890.4089999999999 305.72137499999997,703.709 351.9045,703.709 351.9045,599.409" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="PlannerNode" data-to="SynthNode" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="All queries complete (or no anomaly)" points="423.78174999999993,527.53175 423.78174999999993,635.409 469.9648749999999,635.409 469.9648749999999,715.709" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="SynthNode" data-to="EndNode" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="469.9648749999999,769.5089999999999 469.9648749999999,817.5089999999999" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<g class="edge-label" data-from="PlannerNode" data-to="EnvNode" data-label="Anomaly detected -&gt; Query Environment">
+  <rect x="99.43099999999997" y="238.6" width="203.57200000000003" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="201.21699999999998" y="253.75" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">Anomaly detected -&gt; Query Environment</text>
+</g>
+<g class="edge-label" data-from="PlannerNode" data-to="FeedNode" data-label="Query Feeding &amp; Nutrition">
+  <rect x="358.9045" y="136.8" width="137.04399999999998" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="427.4265" y="151.95000000000002" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">Query Feeding &amp; Nutrition</text>
+</g>
+<g class="edge-label" data-from="PlannerNode" data-to="ProdNode" data-label="Query Production">
+  <rect x="190.58074999999997" y="829.1089999999999" width="101.40400000000002" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="241.28274999999996" y="844.2589999999999" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">Query Production</text>
+</g>
+<g class="edge-label" data-from="PlannerNode" data-to="SynthNode" data-label="All queries complete (or no anomaly)">
+  <rect x="377.4648749999999" y="642.409" width="184.56400000000002" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="469.74687499999993" y="657.559" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">All queries complete (or no anomaly)</text>
+</g>
+<g class="node" data-id="Start" data-label="Start Investigation" data-shape="stadium">
+  <rect x="519.9485" y="133.5" width="146.43099999999998" height="36.900000000000006" rx="18.450000000000003" ry="18.450000000000003" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="593.164" y="151.95" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Start Investigation</text>
+</g>
+<g class="node" data-id="DetectNode" data-label="1. detect_anomalies
+(Runs baseline &amp; Z-score checks)" data-shape="rectangle">
+  <rect x="473.2655" y="210.1" width="239.797" height="53.800000000000004" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="593.164" y="237" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="593.164" dy="-3.9000000000000012">1. detect_anomalies</tspan><tspan x="593.164" dy="16.900000000000002">(Runs baseline &amp; Z-score checks)</tspan></text>
+</g>
+<g class="node" data-id="PlannerNode" data-label="2. health_planner
+(Evaluates state &amp; decides next action)" data-shape="diamond">
+  <polygon points="351.9045,311.9 495.659,455.6545 351.9045,599.409 208.15,455.6545" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="351.9045" y="455.6545" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="351.9045" dy="-3.9000000000000012">2. health_planner</tspan><tspan x="351.9045" dy="16.900000000000002">(Evaluates state &amp; decides next action)</tspan></text>
+</g>
+<g class="node" data-id="EnvNode" data-label="3. environment_welfare
+(Analyzes THI &amp; herd context)" data-shape="rectangle">
+  <rect x="40" y="133.5" width="213.86199999999997" height="53.800000000000004" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="146.93099999999998" y="160.4" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="146.93099999999998" dy="-3.9000000000000012">3. environment_welfare</tspan><tspan x="146.93099999999998" dy="16.900000000000002">(Analyzes THI &amp; herd context)</tspan></text>
+</g>
+<g class="node" data-id="FeedNode" data-label="4. feeding_nutrition
+(Analyzes rumination &amp; intake)" data-shape="rectangle">
+  <rect x="281.86199999999997" y="40" width="216.08499999999998" height="53.800000000000004" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="389.9045" y="66.9" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="389.9045" dy="-3.9000000000000012">4. feeding_nutrition</tspan><tspan x="389.9045" dy="16.900000000000002">(Analyzes rumination &amp; intake)</tspan></text>
+</g>
+<g class="node" data-id="ProdNode" data-label="5. production
+(Analyzes milk yield &amp; conductivity)" data-shape="rectangle">
+  <rect x="148.03175" y="902.4089999999999" width="243.50199999999995" height="53.800000000000004" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="269.78274999999996" y="929.3089999999999" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="269.78274999999996" dy="-3.9000000000000012">5. production</tspan><tspan x="269.78274999999996" dy="16.900000000000002">(Analyzes milk yield &amp; conductivity)</tspan></text>
+</g>
+<g class="node" data-id="SynthNode" data-label="6. synthesize
+(Generates Veterinary Early Warning Report)" data-shape="rectangle">
+  <rect x="316.72137499999997" y="715.709" width="306.48699999999997" height="53.800000000000004" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="469.96487499999995" y="742.6089999999999" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="469.96487499999995" dy="-3.9000000000000012">6. synthesize</tspan><tspan x="469.96487499999995" dy="16.900000000000002">(Generates Veterinary Early Warning Report)</tspan></text>
+</g>
+<g class="node" data-id="EndNode" data-label="End Investigation" data-shape="stadium">
+  <rect x="398.97237499999994" y="817.5089999999999" width="141.985" height="36.900000000000006" rx="18.450000000000003" ry="18.450000000000003" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="469.96487499999995" y="835.959" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">End Investigation</text>
+</g>
+</svg>

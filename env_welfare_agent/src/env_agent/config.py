@@ -13,7 +13,7 @@ import yaml
 
 logger = logging.getLogger(__name__)
 
-_DEFAULT_CONFIG_PATH = Path(__file__).parent.parent / "config" / "default.yaml"
+_DEFAULT_CONFIG_PATH = Path(__file__).parent.parent.parent / "config" / "default.yaml"
 
 
 @dataclass
@@ -34,9 +34,9 @@ class BaselineConfig:
 
 @dataclass
 class HerdConfig:
-    is_herd_wide_threshold: float = 0.50
-    deviation_zscore_threshold: float = 1.5
-    deviation_pct_threshold: float = 20.0
+    is_herd_wide_threshold: float = 0.35
+    deviation_zscore_threshold: float = 0.5
+    deviation_pct_threshold: float = 10.0
     min_cows_for_herd_check: int = 2
 
 
