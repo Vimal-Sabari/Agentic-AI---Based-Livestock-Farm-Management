@@ -28,8 +28,8 @@ baseline:
 # Herd-wide deviation check
 # ---------------------------------------------------------------------------
 herd:
-  is_herd_wide_threshold: 0.50        # fraction of cows deviating to declare herd-wide effect
-  deviation_zscore_threshold: 1.5     # |z-score| vs own baseline to call a cow "deviating"
+  is_herd_wide_threshold: 0.35        # fraction of cows deviating to declare herd-wide effect
+  deviation_zscore_threshold: 0.5     # |z-score| vs own baseline to call a cow "deviating"
   deviation_pct_threshold: 20.0       # percent-change alternative when std ≈ 0
   min_cows_for_herd_check: 2          # skip herd check if fewer cows available
 

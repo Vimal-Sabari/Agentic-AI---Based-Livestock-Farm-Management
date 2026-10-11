@@ -153,21 +153,28 @@ def _cow_zscore(
 ) -> Optional[float]:
     """Compute z-score of anomaly-window activity vs baseline for one cow."""
     cow_df = df[df[cow_col] == cow_id]
-    base = cow_df[(cow_df[ts_col] >= b_start) & (cow_df[ts_col] < b_end)][act_col].dropna()
+    base_all = cow_df[(cow_df[ts_col] >= b_start) & (cow_df[ts_col] < b_end)]
     anom = cow_df[(cow_df[ts_col] >= anom_start) & (cow_df[ts_col] < anom_end)][act_col].dropna()
 
-    if base.empty or anom.empty:
+    if base_all.empty or anom.empty:
         return None
+
+    # For intraday windows (< 20 hours), match diurnal hours to remove day/night bias
+    duration_hours = (anom_end - anom_start).total_seconds() / 3600.0
+    if duration_hours < 20.0:
+        anom_hours = set(cow_df[(cow_df[ts_col] >= anom_start) & (cow_df[ts_col] < anom_end)][ts_col].dt.hour)
+        base_slice = base_all[base_all[ts_col].dt.hour.isin(anom_hours)][act_col].dropna()
+        base = base_slice if not base_slice.empty else base_all[act_col].dropna()
+    else:
+        base = base_all[act_col].dropna()
 
     base_mean = float(base.mean())
     base_std = float(base.std(ddof=1)) if len(base) > 1 else 0.0
     anom_mean = float(anom.mean())
 
     if base_std < 0.5:
-        # std ≈ 0: use percent-change as proxy for z-score magnitude
         if base_mean > 0:
             pct = (anom_mean - base_mean) / base_mean * 100.0
-            # Normalise to z-score-like scale: treat cfg.deviation_pct_threshold as 1 sigma
             return pct / cfg.deviation_pct_threshold
         return 0.0
 
