@@ -93,11 +93,12 @@ def render_health_view():
     status_label = "Anomaly Detected — Needs Specialist Investigation" if anomaly["has_anomaly"] else "Normal Baseline Confirmed"
     badge_bg = "#fee2e2" if anomaly["has_anomaly"] else "#dcfce7"
     badge_text = "#b91c1c" if anomaly["has_anomaly"] else "#15803d"
+    summary_text = anomaly.get("summary", anomaly.get("anomaly_summary", "Anomaly check completed."))
 
     st.markdown(
         f"""
         <div class="verdict-card {'supports' if anomaly['has_anomaly'] else 'does_not_support'}">
-            <div class="verdict-headline">{anomaly['anomaly_summary']}</div>
+            <div class="verdict-headline">{summary_text}</div>
             <div class="verdict-badges">
                 <span class="badge" style="background:{badge_bg}; color:{badge_text}; font-weight:600;">{status_label}</span>
                 <span class="badge">Severity Score: {anomaly['severity_score'] * 100:.0f}%</span>
@@ -113,8 +114,10 @@ def render_health_view():
 
     st.markdown("#### 📈 Individual Cow Vitals & Behavioral Timeline")
     cow_timeline = repo.get_cow_data(selected_cow)
-    temp_base = anomaly.get("metrics", {}).get("core_body_temperature", {}).baseline if "core_body_temperature" in anomaly.get("metrics", {}) else 38.6
-    act_base = anomaly.get("metrics", {}).get("activity_index", {}).baseline if "activity_index" in anomaly.get("metrics", {}) else 50.0
+    temp_m = anomaly.get("metrics", {}).get("core_body_temperature", {})
+    act_m = anomaly.get("metrics", {}).get("activity_index", {})
+    temp_base = temp_m.get("baseline_mean", 38.6) if isinstance(temp_m, dict) else getattr(temp_m, "baseline_mean", 38.6)
+    act_base = act_m.get("baseline_mean", 50.0) if isinstance(act_m, dict) else getattr(act_m, "baseline_mean", 50.0)
 
     ch1, ch2 = st.columns(2)
     with ch1:

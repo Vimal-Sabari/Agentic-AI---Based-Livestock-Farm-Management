@@ -33,4 +33,20 @@ class MultiAgentInvestigationState(TypedDict, total=False):
       - trace_logs: List[Dict[str, Any]]         # Step-by-step audit trail for UI visualization
     """
     # TODO: Define your state fields here
-    pass
+    cow_id: str
+    start_iso: str
+    end_iso: str
+    baseline_start_iso: Optional[str]
+    baseline_end_iso: Optional[str]
+
+    anomaly_data: Dict[str,Any]
+
+    pending_request: Optional[Dict[str, Any]]
+    specialist_responses: List[Dict[str, Any]]
+    latest_response: Optional[Dict[str, Any]]
+    consulted_agents: List[str]
+
+    investigation_complete: bool
+    final_assessment: Optional[Dict[str, Any]]
+    trace_logs:List[Dict[str,Any]]
+

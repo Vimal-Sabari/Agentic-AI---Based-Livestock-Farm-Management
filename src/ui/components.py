@@ -91,7 +91,7 @@ def render_verdict_card(response: AgentResponse) -> None:
     )
 
 
-def render_metrics_row(metrics: Dict[str, MetricItem]) -> None:
+def render_metrics_row(metrics: Dict[str, Any]) -> None:
     """Renders st.metric tiles with value, baseline, and delta."""
     if not metrics:
         st.info("No comparative metrics available for this query window.")
@@ -100,16 +100,23 @@ def render_metrics_row(metrics: Dict[str, MetricItem]) -> None:
     cols = st.columns(len(metrics))
     for col, (name, item) in zip(cols, metrics.items()):
         clean_name = name.replace("_", " ").title()
-        val_str = f"{item.value:g} {item.unit}".strip()
-        delta_str = f"{item.delta_pct:+.1f}% vs base ({item.baseline:g} {item.unit})".strip()
-        
-        # Color inversion: For metrics where positive is bad vs good
-        # Delta color normal in Streamlit: positive is green, negative is red
+        if isinstance(item, dict):
+            val = item.get("value", 0.0)
+            unit = item.get("unit", "")
+            base = item.get("baseline", item.get("baseline_mean", 0.0))
+            delta = item.get("delta_pct", 0.0)
+        else:
+            val = getattr(item, "value", 0.0)
+            unit = getattr(item, "unit", "")
+            base = getattr(item, "baseline", getattr(item, "baseline_mean", 0.0))
+            delta = getattr(item, "delta_pct", 0.0)
+
+        val_str = f"{val:.2f} {unit}".strip()
         col.metric(
             label=clean_name,
             value=val_str,
-            delta=f"{item.delta_pct:+.1f}%",
-            help=f"Cow Baseline: {item.baseline:g} {item.unit}"
+            delta=f"{delta:+.1f}%",
+            help=f"Cow Baseline: {base:.2f} {unit}"
         )
 
 

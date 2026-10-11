@@ -265,9 +265,13 @@ def render_multi_agent_view():
     with st.expander("🔄 Inspect LangGraph Execution Trace & Multi-Agent Event Log", expanded=False):
         traces = result.get("trace_logs", [])
         for i, tr in enumerate(traces):
-            ag_cfg = THEME_CONFIG.get(tr.get("agent"), {})
-            st.markdown(f"**Step {i+1} — {tr.get('step')}** (`{ag_cfg.get('name', tr.get('agent'))}` at `{tr.get('timestamp')[11:19]}`):")
-            st.code(tr.get("details"), language="text")
+            node_name = tr.get("node", tr.get("agent", "Unknown Node"))
+            step_name = tr.get("step", node_name.replace("_", " ").title())
+            details_text = tr.get("message", tr.get("details", "Step completed."))
+            ts_str = tr.get("timestamp", "")
+            ts_disp = ts_str[11:19] if len(ts_str) >= 19 else "Just now"
+            st.markdown(f"**Step {i+1}: {step_name}** (`{node_name}` at `{ts_disp}`):")
+            st.info(details_text)
 
     # Complete State Inspection
     with st.expander("📦 Complete LangGraph State Payload (JSON)", expanded=False):

@@ -45,8 +45,12 @@ def synthesize_clinical_assessment(
     prod_supports = bool(prod_resp and prod_resp.finding == "supports")
 
     # 3. Calculate Aggregate Confidence
-    confidence_scores = [r.confidence for r in specialist_responses if r.confidence > 0]
-    mean_confidence = round(float(np.mean(confidence_scores)), 2) if confidence_scores else 0.85
+    supporting_confidences = [r.confidence for r in specialist_responses if r.finding == "supports"]
+    if supporting_confidences:
+        mean_confidence = round(float(np.mean(supporting_confidences)), 2)
+    else:
+        confidence_scores = [r.confidence for r in specialist_responses if r.confidence > 0]
+        mean_confidence = round(float(np.mean(confidence_scores)), 2) if confidence_scores else 0.85
 
     possible_conditions: List[str] = []
     recommended_actions: List[str] = []

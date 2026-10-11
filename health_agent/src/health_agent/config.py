@@ -28,7 +28,6 @@ class HealthThresholdsConfig:
     accel_drop_delta_pct: float = -25.0
     accel_zscore_threshold: float = -2.0
 
-
 @dataclass
 class SeverityWeightsConfig:
     temp_weight: float = 0.45

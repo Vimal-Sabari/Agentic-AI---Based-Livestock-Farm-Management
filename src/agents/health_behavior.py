@@ -106,3 +106,19 @@ class HealthBehaviorAgent:
             anomaly_data=anomaly_data,
             specialist_responses=specialist_responses,
         )
+
+    def build_followup(
+        self,
+        parent_response: AgentResponse,
+        anomaly_data: Dict[str, Any],
+        existing_queries: List[AgentRequest],
+        max_followups: int = 2,
+    ) -> Optional[AgentRequest]:
+        """Builds a follow-up inquiry based on specialist referrals."""
+        return self._impl.build_followup(
+            parent_response=parent_response,
+            anomaly_data=anomaly_data,
+            existing_queries=existing_queries,
+            max_followups=max_followups,
+        )
+

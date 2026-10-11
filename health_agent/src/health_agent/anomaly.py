@@ -110,7 +110,9 @@ def detect_health_anomalies(
     def make_comparison(val: float, base_mean: float, base_std: float, unit: str) -> HealthMetricComparison:
         eps = 0.001
         delta_pct = ((val - base_mean) / max(eps, abs(base_mean))) * 100.0
-        effective_std = base_std if base_std > eps else 0.1
+        # Biological noise floor: daily lying variation is naturally +/- 15 min; temp is 0.1°C; act is 1.0 pts
+        min_std = 15.0 if "min" in unit else (1.0 if "pts" in unit else 0.1)
+        effective_std = base_std if base_std >= min_std else min_std
         z_score = (val - base_mean) / effective_std
         return HealthMetricComparison(
             value=round(val, 2),
